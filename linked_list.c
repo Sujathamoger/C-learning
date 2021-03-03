@@ -24,7 +24,7 @@ void printList(Node *n)
 	}
 }
 
-struct Node * insert(struct Node *head, int data)
+Node * insert(struct Node *head, int data)
 {
 	Node *cur = (Node *)malloc (sizeof(Node));
 	Node *new_node = (Node *)malloc (sizeof(Node));
