@@ -8,11 +8,13 @@ Find merge point of linked list,
 Find loop and find out where loop starts in linked list,
 Find middle element in linked list,
 */
-Node * insert(Node *head, int data);
+void insert(Node **head, int data);
 void printList(Node *n);
+void deletion(Node **head, int key);
+void reverse(Node **head);
 typedef struct Node{
 	int data;
-	struct Node *next;
+	Node *next;
 }Node;
 
 void printList(Node *n)
@@ -24,78 +26,61 @@ void printList(Node *n)
 	}
 }
 
-Node * insert(struct Node *head, int data)
+void insert(Node **head, int data)
 {
-	Node *cur = (Node *)malloc (sizeof(Node));
 	Node *new_node = (Node *)malloc (sizeof(Node));
+	Node *cur = *head;
 	new_node->data = data;
 	new_node->next = NULL;
-//	printf("inserting node in a linked list\n");
-	if(head == NULL)
+	//printf("inserting node in a linked list\n");
+	if(*head == NULL)
 	{
-
-		head = (Node *)malloc(sizeof(Node));
-		head = new_node ;
+		*head = new_node ;
+		return;
 	}
-	else
+	while(cur->next != NULL)
 	{
-		cur = head;
-		while(cur->next != NULL)
-		{
-		cur=cur->next;
-		}
-		cur->next = new_node;
-		
+		cur = cur->next;
 	}
+	cur->next = new_node;
 	//free(cur);
-	return head;
 }
 
-Node * deletion(Node *head,int key)
+void deletion(Node **head, int key)
 {
-	Node *current = (Node *)malloc (sizeof(Node));
-	Node *prev = (Node *)malloc (sizeof(Node));
-	current = head;
+	Node *current = NULL;
+	Node *prev = NULL;
+	current = *head;
 	
 	printf("deleting a node in linked list\n");
 	
-	if(key == head->data)
+	//If key found in head
+	if((current != NULL) && (current->data == key))
 	{
-		head = head->next;  /*if key found in head position*/
+		*head = current->next;
+		return;
 	}
-
-	else
-	{
-
-		while(current != NULL)
-		{
-			//printf("current->data=%d\n",current->data);
 	
-			if(key == current->data)
-			{
-
-				prev->next = current->next;
-				break;
-			}
-			prev    = current;
-			current = current->next;
-		}
-		if(current == NULL)
-		{
-			printf("key not found\n");
-		}
+	while((current != NULL) && (current->data != key))
+	{
+		prev    = current;
+		current = current->next;
 	}
-
-	return head;
+	//If key does not present in linked list
+	if(current == NULL)
+	{
+		printf("key not found\n");
+		return;
+	}
+	prev->next = current->next;
 }
 
-Node * reverse(Node *head)
+void reverse(Node **head)
 {
-	
 	Node *prev = NULL;
 	Node *next = NULL;
-	Node *current =(Node *)malloc (sizeof(Node));
-	current = head;
+	Node *current = NULL;
+	current = *head;
 	
 	printf("Reversing linked list\n");
 	
@@ -106,71 +91,54 @@ Node * reverse(Node *head)
 		prev          = current;
 		current       = next;
 	}
-	head = prev;
-	return head;
-	
-	
-	
+	*head = prev;	
 }
 
-Node * merge(Node *head1,Node *head2)
+Node * merge(Node *head1, Node *head2)
 {
-	Node *temp = (Node *)malloc (sizeof(Node));
+	Node *temp = NULL;
 	temp = head1;
 	printf("Merging linked list\n");
 	
-	if(head1->next == NULL)
+	while(temp->next != NULL)
 	{
-		head1->next == head2;
+		temp=temp->next;
 	}
-	else
-	{
-		while(temp->next != NULL)
-		{
-			temp=temp->next;
-		}
-		temp->next = head2;
-	}
-	
-	//free(head2); /*it goes to infinite loop dont know why*/
+	temp->next = head2;
+
 	return head1;
 }
 
 int main(void)
 {
-   Node *head = NULL;
-   
-   Node *head_2 = NULL;
+	Node *head = NULL;
+	Node *head_2 = NULL;
 
-   head = insert(head,1);
-   head = insert(head,3);
-   head = insert(head,5);
+	insert(&head,1);
+   	insert(&head,3);
+   	insert(&head,5);
    
-   head_2 = insert(head_2,2);
-   head_2 = insert(head_2,4);
-   head_2 = insert(head_2,6);
+   	insert(&head_2,2);
+   	insert(&head_2,4);
+   	insert(&head_2,6);
    
+  	printList(head);
+   	printf("\n");
    
-   printList(head);
+   	printList(head_2);
+   	printf("\n");
    
-   printf("\n");
+   	deletion(&head,5);
    
-   printList(head_2);
-	printf("\n");
+   	printList(head);
+   	printf("\n");
    
-  head=deletion(head,5);
-   
+  	// head = merge(head,head_2);
+   	//printList(head);
+   	//printf("\n");
 
-   printList(head);
-   printf("\n");
-   
-  // head = merge(head,head_2);
-   //printList(head);
-   //printf("\n");
-
-	head_2 = reverse(head_2);
-	printList(head_2);
-	printf("\n");
-	
+     	reverse(&head_2);
+     	printList(head_2);
+     	printf("\n");
 	return 0;
 }
