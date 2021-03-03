@@ -58,6 +58,7 @@ void deletion(Node **head, int key)
 	if((current != NULL) && (current->data == key))
 	{
 		*head = current->next;
+		free(current);
 		return;
 	}
 	
@@ -73,6 +74,7 @@ void deletion(Node **head, int key)
 		return;
 	}
 	prev->next = current->next;
+	free(current);
 }
 
 void reverse(Node **head)
