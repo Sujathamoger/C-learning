@@ -8,15 +8,14 @@ Find merge point of linked list,
 Find loop and find out where loop starts in linked list,
 Find middle element in linked list,
 */
-struct Node * insert(struct Node *head, int data);
-void printList(struct Node *n);
-struct Node
-{
+Node * insert(Node *head, int data);
+void printList(Node *n);
+typedef struct Node{
 	int data;
 	struct Node *next;
-};
+}Node;
 
-void printList(struct Node *n)
+void printList(Node *n)
 {
 	while(n != NULL)
 	{
@@ -27,15 +26,15 @@ void printList(struct Node *n)
 
 struct Node * insert(struct Node *head, int data)
 {
-	struct Node *cur = (struct Node *)malloc (sizeof(struct Node));
-	struct Node *new_node = (struct Node *)malloc (sizeof(struct Node));
+	Node *cur = (Node *)malloc (sizeof(Node));
+	Node *new_node = (Node *)malloc (sizeof(Node));
 	new_node->data = data;
 	new_node->next = NULL;
 //	printf("inserting node in a linked list\n");
 	if(head == NULL)
 	{
 
-		head = (struct Node *)malloc(sizeof(struct Node));
+		head = (Node *)malloc(sizeof(Node));
 		head = new_node ;
 	}
 	else
@@ -52,10 +51,10 @@ struct Node * insert(struct Node *head, int data)
 	return head;
 }
 
-struct Node * deletion(struct Node *head,int key)
+Node * deletion(Node *head,int key)
 {
-	struct Node *current = (struct Node *)malloc (sizeof(struct Node));
-	struct Node *prev = (struct Node *)malloc (sizeof(struct Node));
+	Node *current = (Node *)malloc (sizeof(Node));
+	Node *prev = (Node *)malloc (sizeof(Node));
 	current = head;
 	
 	printf("deleting a node in linked list\n");
@@ -90,12 +89,12 @@ struct Node * deletion(struct Node *head,int key)
 	return head;
 }
 
-struct Node * reverse(struct Node *head)
+Node * reverse(Node *head)
 {
 	
-	struct Node *prev = NULL;
-	struct Node *next = NULL;
-	struct Node *current =(struct Node *)malloc (sizeof(struct Node));
+	Node *prev = NULL;
+	Node *next = NULL;
+	Node *current =(Node *)malloc (sizeof(Node));
 	current = head;
 	
 	printf("Reversing linked list\n");
@@ -114,9 +113,9 @@ struct Node * reverse(struct Node *head)
 	
 }
 
-struct Node * merge(struct Node *head1,struct Node *head2)
+Node * merge(Node *head1,Node *head2)
 {
-	struct Node *temp = (struct Node *)malloc (sizeof(struct Node));
+	Node *temp = (Node *)malloc (sizeof(Node));
 	temp = head1;
 	printf("Merging linked list\n");
 	
@@ -139,9 +138,9 @@ struct Node * merge(struct Node *head1,struct Node *head2)
 
 int main(void)
 {
-   struct Node *head = NULL;
+   Node *head = NULL;
    
-   struct Node *head_2 = NULL;
+   Node *head_2 = NULL;
 
    head = insert(head,1);
    head = insert(head,3);
