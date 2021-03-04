@@ -8,14 +8,17 @@ Find merge point of linked list,
 Find loop and find out where loop starts in linked list,
 Find middle element in linked list,
 */
+
+typedef struct Node
+{
+	int data;
+	struct Node *next;
+}Node;
+
 void insert(Node **head, int data);
 void printList(Node *n);
 void deletion(Node **head, int key);
 void reverse(Node **head);
-typedef struct Node{
-	int data;
-	Node *next;
-}Node;
 
 void printList(Node *n)
 {
@@ -124,23 +127,28 @@ int main(void)
    	insert(&head_2,4);
    	insert(&head_2,6);
    
+    printf("first linked list:\t");
   	printList(head);
    	printf("\n");
    
+   	printf("second linked list:\t");
    	printList(head_2);
    	printf("\n");
    
    	deletion(&head,5);
-   
+   	
+   	printf("after deleting key=5 in first linked list:\t");
    	printList(head);
    	printf("\n");
    
   	// head = merge(head,head_2);
    	//printList(head);
    	//printf("\n");
-
-     	reverse(&head_2);
-     	printList(head_2);
-     	printf("\n");
+	
+    reverse(&head_2);
+    
+    printf("reversing second linked list:\t");
+    printList(head_2);
+    printf("\n");
 	return 0;
 }
