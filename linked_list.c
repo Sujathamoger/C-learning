@@ -27,6 +27,7 @@ void printList(Node *n)
 		printf("%d\t",n->data);
 		n= n->next;
 	}
+	printf("\n");
 }
 
 void insert(Node **head, int data)
@@ -114,6 +115,65 @@ Node * merge(Node *head1, Node *head2)
 	return head1;
 }
 
+int getCount(Node *head)
+{
+	int len=0;
+	Node *temp = NULL;
+	temp = head;
+	while(temp!=NULL)
+	{
+		len=len+1;
+		temp = temp->next;
+	}
+	printf("len=%d\n",len);
+	return len;
+}
+
+int getIntersection(int n, Node *head1, Node *head2)
+{
+	Node *current1 = NULL;
+	Node *current2 = NULL;
+	int i;
+	
+	current1 = head1;
+	current2 = head2;
+	for(i=0;i<n;i++)
+	{
+		current1 = current1->next;
+	}
+	
+	while(current1->next!=NULL && current2->next!=NULL)
+	{
+		if(current1->data == current2->data)
+			return current1->data;
+		
+		current1=current1->next;
+		current2=current2->next;
+	}
+}
+
+/*Merge point of two linked list*/
+void mergePoint(Node *head1, Node *head2)
+{
+	int c1 ,c2,d,retval;
+	
+	c1 = getCount(head1);
+	c2 = getCount(head2);
+	
+	if(c1 > c2)
+	{
+		d=c1-c2;
+		retval=getIntersection(d,head1,head2);
+	}
+	else
+	{
+		d=c2-c1;
+		retval=getIntersection(d,head2,head1);
+	}
+	
+	printf("linked list are merging at the point=%d\n",retval);
+	
+}
 int main(void)
 {
 	Node *head = NULL;
@@ -122,10 +182,14 @@ int main(void)
 	insert(&head,1);
    	insert(&head,3);
    	insert(&head,5);
+   	insert(&head,7);
    
    	insert(&head_2,2);
    	insert(&head_2,4);
    	insert(&head_2,6);
+   	insert(&head_2,3);
+   	insert(&head_2,5);
+   	
    
     printf("first linked list:\t");
   	printList(head);
@@ -135,15 +199,20 @@ int main(void)
    	printList(head_2);
    	printf("\n");
    
-   	deletion(&head,5);
+   	deletion(&head,7);
    	
-   	printf("after deleting key=5 in first linked list:\t");
+   	printf("after deleting  last node in first linked list:\t");
    	printList(head);
    	printf("\n");
    
   	// head = merge(head,head_2);
    	//printList(head);
    	//printf("\n");
+   	
+   	mergePoint(head,head_2);
+   	
+   	printList(head);
+   	printList(head_2);
 	
     reverse(&head_2);
     
