@@ -142,7 +142,7 @@ int getIntersection(int n, Node *head1, Node *head2)
 		current1 = current1->next;
 	}
 	
-	while(current1->next!=NULL && current2->next!=NULL)
+	while(current1 != NULL && current2 != NULL)
 	{
 		if(current1->data == current2->data)
 			return current1->data;
